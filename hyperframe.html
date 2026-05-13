@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hyperframe 3D Rotating Box</title>
+    <style>
+      :root {
+        --box-size: 180px;
+        --half-size: calc(var(--box-size) / 2);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: radial-gradient(circle at top, #1f2940 0%, #070b14 65%);
+        font-family: Inter, system-ui, sans-serif;
+        color: #d7e3ff;
+      }
+
+      .stage {
+        perspective: 900px;
+        width: 340px;
+        height: 340px;
+        display: grid;
+        place-items: center;
+      }
+
+      .box {
+        position: relative;
+        width: var(--box-size);
+        height: var(--box-size);
+        transform-style: preserve-3d;
+        animation: rotate 8s linear infinite;
+      }
+
+      .face {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        border: 2px solid rgba(180, 210, 255, 0.6);
+        background: rgba(100, 150, 240, 0.15);
+        backdrop-filter: blur(2px);
+        font-weight: 700;
+      }
+
+      .front  { transform: translateZ(var(--half-size)); }
+      .back   { transform: rotateY(180deg) translateZ(var(--half-size)); }
+      .right  { transform: rotateY(90deg) translateZ(var(--half-size)); }
+      .left   { transform: rotateY(-90deg) translateZ(var(--half-size)); }
+      .top    { transform: rotateX(90deg) translateZ(var(--half-size)); }
+      .bottom { transform: rotateX(-90deg) translateZ(var(--half-size)); }
+
+      @keyframes rotate {
+        from { transform: rotateX(0deg) rotateY(0deg); }
+        to   { transform: rotateX(360deg) rotateY(360deg); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stage" aria-label="3D rotating box demo">
+      <div class="box">
+        <div class="face front">FRONT</div>
+        <div class="face back">BACK</div>
+        <div class="face right">RIGHT</div>
+        <div class="face left">LEFT</div>
+        <div class="face top">TOP</div>
+        <div class="face bottom">BOTTOM</div>
+      </div>
+    </div>
+  </body>
+</html>
